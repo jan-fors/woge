@@ -2,6 +2,13 @@
 
 Worksheet PDF → exercise bank (JSON) → random exercise sheets with fresh numbers, as Obsidian Markdown or PDF.
 
+woge turns the worksheets you already have into endless practice material. A Claude chat converts a worksheet PDF into a JSON *exercise bank*: each exercise keeps its original text and solution, plus an optional template that swaps in new random numbers and recomputes the answer. From the banks you can:
+
+- **generate sheets on the command line** (`woge sample`): pick by count or time budget, topic, difficulty and so on, as Markdown (Obsidian callouts) or PDF, with solutions inline, at the end or in a separate file;
+- **study in a desktop app** (`woge-gui`): Anki-style cards with spaced repetition, so new and overdue exercises come up first and every rating is tracked.
+
+Quick start: install (below), convert a worksheet as described under [Workflow](#workflow), then run `woge sample -n 5 -f pdf` or start `woge-gui`.
+
 ## Install
 
 **Arch Linux (makepkg):**
