@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=woge
+GenericName=Exercise trainer
+Comment=Practise exercises with generated variants and spaced repetition
+Exec=woge-gui
+Icon=woge
+Terminal=false
+Categories=Education;Science;Math;
+Keywords=exercises;flashcards;anki;math;study;

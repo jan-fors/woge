@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "woge"
+version = "1.1.0"
+description = "Worksheet PDF -> exercise bank -> random exercise sheets with fresh numbers, plus an Anki-style study app"
+requires-python = ">=3.10"
+dependencies = ["sympy"]
+
+[project.optional-dependencies]
+gui = ["PySide6", "matplotlib"]
+
+[project.scripts]
+woge = "woge.cli:main"
+
+[project.gui-scripts]
+woge-gui = "woge.gui:main"
+
+# The code lives in src/ in the checkout but is installed as the package "woge".
+[tool.setuptools]
+packages = ["woge"]
+package-dir = {"woge" = "src"}

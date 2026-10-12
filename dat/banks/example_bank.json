@@ -1,0 +1,244 @@
+{
+  "schema_version": 1,
+  "source": {
+    "title": "Example worksheet – Algebra & Analysis",
+    "subject": "math",
+    "language": "en"
+  },
+  "exercises": [
+    {
+      "id": "ex-1a",
+      "title": "Quadratic equation",
+      "type": "quadratic_equation",
+      "topic": "algebra",
+      "tags": [
+        "pq-formula"
+      ],
+      "difficulty": 2,
+      "minutes": 6,
+      "original": {
+        "statement": "Solve the equation $x^{2} - 5 x + 6 = 0$.",
+        "solution": "$x_1 = 2,\\; x_2 = 3$",
+        "explanation": "Use the pq-formula with $p = -5$ and $q = 6$:\n\n$$x_{1,2} = -\\frac{p}{2} \\pm \\sqrt{\\left(\\frac{p}{2}\\right)^2 - q} = \\frac{5}{2} \\pm \\sqrt{\\frac{1}{4}} = \\frac{5}{2} \\pm \\frac{1}{2}$$\n\nSo $x_1 = 2$ and $x_2 = 3$."
+      },
+      "template": {
+        "parameters": {
+          "r1": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          },
+          "r2": {
+            "type": "int",
+            "min": -9,
+            "max": 9
+          }
+        },
+        "derived": {
+          "poly": "latex(expand((x - r1) * (x - r2)))",
+          "p": "-(r1 + r2)",
+          "q": "r1 * r2",
+          "mp2": "-Rational(p, 2)",
+          "disc": "Rational(p, 2)**2 - q",
+          "sq": "sqrt(disc)"
+        },
+        "constraints": [
+          "r1 < r2",
+          "p != 0",
+          "q != 0"
+        ],
+        "statement": "Solve the equation ${{poly}} = 0$.",
+        "solution": "$x_1 = {{r1}},\\; x_2 = {{r2}}$",
+        "explanation": "Use the pq-formula with $p = {{p}}$ and $q = {{q}}$:\n\n$$x_{1,2} = -\\frac{p}{2} \\pm \\sqrt{\\left(\\frac{p}{2}\\right)^2 - q} = {{mp2}} \\pm \\sqrt{{{disc}}} = {{mp2}} \\pm {{sq}}$$\n\nSo $x_1 = {{r1}}$ and $x_2 = {{r2}}$."
+      }
+    },
+    {
+      "id": "ex-1b",
+      "title": "Adding fractions",
+      "type": "fraction_addition",
+      "topic": "arithmetic",
+      "difficulty": 1,
+      "minutes": 4,
+      "original": {
+        "statement": "Compute $\\frac{2}{3} + \\frac{3}{4}$ and simplify.",
+        "solution": "$\\frac{17}{12}$",
+        "explanation": "The least common denominator is $12$. Expand: $\\frac{8}{12} + \\frac{9}{12} = \\frac{17}{12}$."
+      },
+      "template": {
+        "parameters": {
+          "a": {
+            "type": "int",
+            "min": 1,
+            "max": 9
+          },
+          "b": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          },
+          "c": {
+            "type": "int",
+            "min": 1,
+            "max": 9
+          },
+          "d": {
+            "type": "int",
+            "min": 2,
+            "max": 12
+          }
+        },
+        "derived": {
+          "L": "lcm(b, d)",
+          "a2": "a * L / b",
+          "c2": "c * L / d",
+          "res": "Rational(a, b) + Rational(c, d)"
+        },
+        "constraints": [
+          "gcd(a, b) == 1",
+          "gcd(c, d) == 1",
+          "b != d",
+          "L <= 60"
+        ],
+        "statement": "Compute $\\frac{{{a}}}{{{b}}} + \\frac{{{c}}}{{{d}}}$ and simplify.",
+        "solution": "${{res}}$",
+        "explanation": "The least common denominator is $\\operatorname{lcm}({{b}}, {{d}}) = {{L}}$. Expand: $\\frac{{{a2}}}{{{L}}} + \\frac{{{c2}}}{{{L}}} = {{res}}$."
+      }
+    },
+    {
+      "id": "ex-2",
+      "title": "Derivative of a polynomial",
+      "type": "derivative_power_rule",
+      "topic": "analysis",
+      "difficulty": 1,
+      "minutes": 4,
+      "original": {
+        "statement": "Differentiate $f(x) = 3x^4 - 2x^2 + 7$.",
+        "solution": "$f'(x) = 12x^3 - 4x$",
+        "explanation": "Apply the power rule $(x^n)' = n x^{n-1}$ to each term; the constant $7$ vanishes: $3 \\cdot 4 x^3 - 2 \\cdot 2 x = 12x^3 - 4x$."
+      },
+      "template": {
+        "parameters": {
+          "a": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "n": {
+            "type": "int",
+            "min": 3,
+            "max": 7
+          },
+          "b": {
+            "type": "int",
+            "min": -9,
+            "max": 9,
+            "exclude": [
+              0
+            ]
+          },
+          "m": {
+            "type": "int",
+            "min": 1,
+            "max": 4
+          },
+          "c": {
+            "type": "int",
+            "min": -20,
+            "max": 20
+          }
+        },
+        "derived": {
+          "f": "a*x**n + b*x**m + c",
+          "ftex": "latex(f)",
+          "dftex": "latex(diff(f, x))",
+          "sb": "signed(b)"
+        },
+        "constraints": [
+          "n > m"
+        ],
+        "statement": "Differentiate $f(x) = {{ftex}}$.",
+        "solution": "$f'(x) = {{dftex}}$",
+        "explanation": "Apply the power rule $(x^n)' = n x^{n-1}$ to each term; constants vanish:\n\n$$f'(x) = {{a}} \\cdot {{n}}\\, x^{{{n}} - 1} {{sb}} \\cdot {{m}}\\, x^{{{m}} - 1} = {{dftex}}$$"
+      }
+    },
+    {
+      "id": "ex-3",
+      "title": "Discount word problem",
+      "type": "percentage_decrease",
+      "topic": "arithmetic",
+      "difficulty": 1,
+      "minutes": 4,
+      "original": {
+        "statement": "Anna buys a jacket that costs 80 €. It is reduced by 25 %. How much does she pay?",
+        "solution": "60.00 €",
+        "explanation": "The discount is $80 \\cdot 0.25 = 20$ €, so she pays $80 - 20 = 60$ €."
+      },
+      "template": {
+        "parameters": {
+          "name": {
+            "type": "choice",
+            "values": [
+              "Anna",
+              "Ben",
+              "Chiara",
+              "David",
+              "Elif"
+            ]
+          },
+          "item": {
+            "type": "choice",
+            "values": [
+              "a jacket",
+              "a bike",
+              "headphones",
+              "a backpack"
+            ]
+          },
+          "price": {
+            "type": "int",
+            "min": 20,
+            "max": 300,
+            "step": 5
+          },
+          "pct": {
+            "type": "choice",
+            "values": [
+              10,
+              15,
+              20,
+              25,
+              30,
+              40
+            ]
+          }
+        },
+        "derived": {
+          "disc": "price * pct / 100",
+          "new": "price - disc",
+          "frac": "num(pct / 100)"
+        },
+        "constraints": [],
+        "statement": "{{name}} buys {{item}} that costs {{price}} €. It is reduced by {{pct}} %. How much does {{name}} pay?",
+        "solution": "{{new:.2f}} €",
+        "explanation": "The discount is ${{price}} \\cdot {{frac}} = {{disc:.2f}}$ €, so {{name}} pays ${{price}} - {{disc:.2f}} = {{new:.2f}}$ €."
+      }
+    },
+    {
+      "id": "ex-4",
+      "title": "Derivative of a constant",
+      "type": "conceptual_explain",
+      "topic": "analysis",
+      "difficulty": 2,
+      "minutes": 5,
+      "original": {
+        "statement": "Explain why the derivative of a constant function is zero.",
+        "solution": "Because a constant function never changes, every difference quotient is $0$, so its limit is $0$.",
+        "explanation": "For $f(x) = c$: $\\frac{f(x+h) - f(x)}{h} = \\frac{c - c}{h} = 0$ for every $h \\neq 0$. The limit $h \\to 0$ is therefore $0$. Geometrically: the graph is a horizontal line with slope $0$."
+      },
+      "template": null
+    }
+  ]
+}

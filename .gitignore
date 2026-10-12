@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+packaging/src/
+packaging/pkg/
+packaging/*.pkg.tar.*
+
+# user data: keep only the example bank
+dat/*
+!dat/banks/
+dat/banks/*
+!dat/banks/example_bank.json

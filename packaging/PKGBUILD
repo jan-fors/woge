@@ -1,0 +1,30 @@
+# Maintainer: solar <solarbursty@pm.me>
+# Build from the working tree:  cd packaging && makepkg -si
+# (the PKGBUILD lives in packaging/ because makepkg uses ./src for its own sources, which clashes with the code folder)
+pkgname=woge
+pkgver=1.1.0
+pkgrel=1
+pkgdesc='Exercise banks from worksheets: random sheets with fresh numbers and an Anki-style study app'
+arch=('any')
+license=('custom')
+depends=('python' 'python-sympy' 'python-matplotlib' 'pyside6')
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
+optdepends=('pandoc: PDF export'
+            'texlive-xetex: PDF export (LaTeX engine; or tectonic)')
+
+_root="$startdir/.."
+
+build() {
+  cd "$_root"
+  python -m build --wheel --no-isolation --outdir "$srcdir/dist"
+}
+
+package() {
+  cd "$_root"
+  python -m installer --destdir="$pkgdir" "$srcdir"/dist/*.whl
+  install -Dm644 EXTRACTION_PROMPT.md "$pkgdir/usr/share/woge/EXTRACTION_PROMPT.md"
+  install -dm755 "$pkgdir/usr/share/woge"
+  cp -r dat/banks "$pkgdir/usr/share/woge/banks"
+  install -Dm644 packaging/woge.desktop "$pkgdir/usr/share/applications/woge.desktop"
+  install -Dm644 packaging/woge.svg "$pkgdir/usr/share/icons/hicolor/scalable/apps/woge.svg"
+}
